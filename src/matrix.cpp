@@ -4,7 +4,6 @@
 #include <LedControl.h>
 
 /* PROGRAMMES */
-#include "horloge.h"
 
 /* MISC */
 #define PIN_CS  10       

@@ -1,10 +1,11 @@
 #include "menu.h"
 
 /* BIBLIOTHEQUES */
-#include "IRremote.hpp"
+#include <IRremote.h>
 
 /* PROGRAMMES */
 #include "display.h"
+#include "rtc.h"
 
 /* MISC */
 #define PIN_IR 2
@@ -182,7 +183,7 @@ void selectionMenuReveil()
         break;
       case 2:
         IrReceiver.resume();  // Vide le buffer IR
-        // Bascule activer/désactiver réveil
+        toggleAlarm();
         isValid = false;
         break;
       case 3:
@@ -221,11 +222,15 @@ void selectionHeureReveil()
     
     while(!isValid)
     {
+      afficherHeureReveil();
       commande = obtenirCode();
       switch (commande)
       { 
 
       // Modifer avec flèches
+      case 102:
+        IrReceiver.resume();
+        isValid = false;
 
       case 101:
         IrReceiver.resume();  // Vide le buffer IR

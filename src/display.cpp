@@ -6,7 +6,7 @@
 #include <U8x8lib.h>
 
 /* PROGRAMMES */
-#include "horloge.h"
+#include "rtc.h"
 
 /* MISC */
 #ifdef U8X8_HAVE_HW_SPI
@@ -30,6 +30,8 @@ void afficherMenuPrincipal()
   u8x8.drawString(0,1,"2: REVEIL       ");     
   u8x8.drawString(0,2,"3: FORMAT       ");   
   u8x8.drawString(0,3,"                "); 
+  u8x8.drawString(0,4,"                ");
+  u8x8.drawString(0,7,isToggleAlarm() ? "Alarme : ON     " : "                ");
 
   u8x8.refreshDisplay();    // Affiche les changements
   delay(1000);            // Délai de 2s    
@@ -40,7 +42,9 @@ void afficherMenuHorloge()
   u8x8.drawString(0,0,"OK: CONFIRMER   ");
   u8x8.drawString(0,1,"                "); 
   u8x8.drawString(0,2,"                "); 
-  u8x8.drawString(0,3,"                ");     
+  u8x8.drawString(0,3,"                ");
+  u8x8.drawString(0,4,"                ");
+  u8x8.drawString(0,7,isToggleAlarm() ? "Alarme : ON     " : "                ");     
 
   u8x8.refreshDisplay();    // Affiche les changements
   delay(1000);            // Délai de 2s    
@@ -50,9 +54,11 @@ void afficherMenuHorloge()
 void afficherMenuReveil()
 {
   u8x8.drawString(0,0,"1: HEURE        ");
-  u8x8.drawString(0,1,getToggleAlarm() ? "2: DESACTIVER   " : "2: ACTIVER      "); 
+  u8x8.drawString(0,1,isToggleAlarm() ? "2: DESACTIVER   " : "2: ACTIVER      "); 
   u8x8.drawString(0,2,isFirstMelody    ? "3: MELODIE 1    " : "3: MELODIE 2    "); 
-  u8x8.drawString(0,3,"0: RETOUR       ");     
+  u8x8.drawString(0,3,"4: SNOOZE       ");
+  u8x8.drawString(0,4,"0: RETOUR       ");     
+  u8x8.drawString(0,7,isToggleAlarm() ? "Alarme : ON     " : "                ");
 
   u8x8.refreshDisplay();    // Affiche les changements
   delay(1000);            // Délai de 2s    
@@ -60,10 +66,18 @@ void afficherMenuReveil()
 // 2.1
 void afficherHeureReveil()
 {
-  u8x8.drawString(0,0,"                ");  
+  Horaire alarm = getCurrentAlarm();
+  
+  char alarmString[6]; // "HH/MM\0"
+  snprintf(alarmString, sizeof(alarmString), "%02d:%02d", alarm.heure, alarm.minute);
+  u8x8.drawString(0,0,"                ");
+  u8x8.drawString(0,0, alarmString);  
+
   u8x8.drawString(0,1,"OK: CONFIRMER   ");
   u8x8.drawString(0,2,"                "); 
   u8x8.drawString(0,3,"                ");     
+  u8x8.drawString(0,4,"                ");
+  u8x8.drawString(0,7,isToggleAlarm() ? "Alarme : ON     " : "                ");
 
   u8x8.refreshDisplay();    // Affiche les changements
   delay(1000);            // Délai de 2s   
