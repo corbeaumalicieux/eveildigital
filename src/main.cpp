@@ -17,15 +17,15 @@ void setup()
   // Initialisation des composants
   initDisplay();
   initIR();
-  initMatrix();
-  initHorloge(); initAlarm();
+    //initMatrix();
+    //initHorloge(); initAlarm();
 
   selectionMenuPrincipal(); // Lancement du menu sur l'écran OLED
 }
 
 void loop() 
 {
-  updateHorloge();    // Met à jour l'horloge
-  afficherHorloge();  // Affiche l'horloge sur matrice
-  checkAlarm();       // Check si l'alarme est activée ou non
+    //updateHorloge();    // Met à jour l'horloge
+    //afficherHorloge();  // Affiche l'horloge sur matrice
+    //checkAlarm();       // Check si l'alarme est activée ou non
 }
