@@ -1,13 +1,13 @@
 #include "menu.h"
 
 /* BIBLIOTHEQUES */
-#include "IRremote.h"
+#include "IRremote.hpp"
 
 /* PROGRAMMES */
 #include "display.h"
 
 /* MISC */
-#define PIN_IR 7
+#define PIN_IR 2
 
 // Initialiser capteur infrarouge
 void initIR()

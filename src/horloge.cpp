@@ -18,10 +18,14 @@ unsigned long previousMillis = 0;  // Pour la mise à jour du temps écoulé tou
 const long interval = 1000;  // Intervalle de 1 seconde (1000 millisecondes)
 DateTime simulatedTime; // Temps simulé
 
+
 bool toggleAlarm = true; // Alarme activé ou non
 DateTime alarmTime; // Temps de l'alarme
 bool isAlarmOn = false;
 const int alarmLength = 15; // Durée de l'alarme en secondes
+
+bool isChosenDateTime = false;
+DateTime chosenDateTime;
 
 // Initialise l'horloge
 void initHorloge() {
@@ -111,16 +115,18 @@ void printDateTime(DateTime dt)
 // Affiche une horloge sur les 4 matrices
 void afficherHorloge()
 {   
-    Horaire t = dtToHoraire(simulatedTime);
-    int heure_d, heure_u, minute_d, minute_u;
+  updateHorloge();
 
-    cutTime(t.heure, &heure_d, &heure_u);
-    cutTime(t.minute, &minute_d, &minute_u);
+  Horaire t = dtToHoraire(simulatedTime);
+  int heure_d, heure_u, minute_d, minute_u;
 
-    afficherChiffre(getChiffre(heure_d), 3);
-    afficherChiffre(getChiffre(heure_u), 2);
-    afficherChiffre(getChiffre(minute_d), 1);
-    afficherChiffre(getChiffre(minute_u), 0);
+  cutTime(t.heure, &heure_d, &heure_u);
+  cutTime(t.minute, &minute_d, &minute_u);
+
+  afficherChiffre(getChiffre(heure_d), 3);
+  afficherChiffre(getChiffre(heure_u), 2);
+  afficherChiffre(getChiffre(minute_d), 1);
+  afficherChiffre(getChiffre(minute_u), 0);
 }
 // Renvoie si l'alarme est activée ou non
 bool getToggleAlarm()
